@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Level &amp; Gradient Calculator</title>
+<!-- PWA (install as app): keep these lines when replacing this file -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1d3036">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Level Calc">
+<!-- /PWA -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -914,5 +923,12 @@ els.endUp.addEventListener('blur',()=>{
 
 compute();
 </script>
+<!-- PWA (install as app): keep this block when replacing this file -->
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+}
+</script>
+<!-- /PWA -->
 </body>
 </html>
