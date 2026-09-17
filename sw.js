@@ -2,17 +2,18 @@
 // Pages are fetched from the network first so updates show up straight away,
 // falling back to the cached copy when there is no connection.
 // Bump CACHE_VERSION if you add or rename files in PRECACHE.
-const CACHE_VERSION = 'v1';
-const CACHE = `level-calc-${CACHE_VERSION}`;
+const CACHE_VERSION = 'v2';
+const CACHE = `sloapp-${CACHE_VERSION}`;
 const PRECACHE = [
   './',
-  './index.html',
+  './SloApp.html',
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-512.png',
   './icons/apple-touch-icon.png',
-  './icons/favicon-32.png'
+  './icons/favicon-32.png',
+  './icons/favicon.svg'
 ];
 
 self.addEventListener('install', event => {
@@ -23,7 +24,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k.startsWith('level-calc-') && k !== CACHE).map(k => caches.delete(k))))
+      .then(keys => Promise.all(keys.filter(k => (k.startsWith('sloapp-') || k.startsWith('level-calc-')) && k !== CACHE).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -47,6 +48,6 @@ self.addEventListener('fetch', event => {
         return res;
       })
       .catch(() => caches.match(req, { ignoreSearch: true })
-        .then(hit => hit || (req.mode === 'navigate' ? caches.match('./index.html') : Response.error())))
+        .then(hit => hit || (req.mode === 'navigate' ? caches.match('./SloApp.html') : Response.error())))
   );
 });
